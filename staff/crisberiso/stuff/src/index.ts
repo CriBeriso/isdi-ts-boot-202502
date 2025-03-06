@@ -10,7 +10,7 @@ function sumNumbers(numbers: number[]) {
     total += number;
 
     return total;
-  }, 0);
+  }, 0); //valor inicial
 }
 
 //en este caso el callback no necesita de tipado de parametros, porque estamos aplicando el metodo reduce sobre un array de numbers y ya infiere que los parametros seran de tipo numerico. 
@@ -67,7 +67,7 @@ function triplify(value: number | string) {
   return value.repeat(3)
 };
 
-const stuff: (number | boolean)[] = [34, false]; //otro uso de type union.
+const stuff: (number | boolean)[] = [34, false]; //otro uso de union type
 
 type PaymentMethod = "cash" | "paypal" | "card";
 
