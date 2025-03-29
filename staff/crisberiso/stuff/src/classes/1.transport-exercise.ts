@@ -20,7 +20,7 @@ interface IDangerous {
 }
 
 class Truck extends Vehicle {
-  constructor (public chargeWeight: number, public distanceToTravel: number) {
+  constructor (chargeWeight: number, distanceToTravel: number) {
     super(chargeWeight, distanceToTravel)
   }
 
@@ -34,7 +34,7 @@ class Truck extends Vehicle {
 }
 
 class RefrigeratedTruck extends Vehicle implements IRefrigerated {
-  constructor (public chargeWeight: number, public distanceToTravel: number) {
+  constructor (chargeWeight: number, distanceToTravel: number) {
     super(chargeWeight, distanceToTravel)
   }
 
@@ -53,7 +53,7 @@ class RefrigeratedTruck extends Vehicle implements IRefrigerated {
 }
 
 class DangerousTruck extends Vehicle implements IDangerous {
-  constructor (public chargeWeight: number, public distanceToTravel: number) {
+  constructor (chargeWeight: number, distanceToTravel: number) {
     super(chargeWeight, distanceToTravel)
   }
 
@@ -69,7 +69,6 @@ class DangerousTruck extends Vehicle implements IDangerous {
       "Observations": this.verifySecurity()
     }  
   }
-  
 }
 
 const pepeTruck = new Truck(2000, 500)
