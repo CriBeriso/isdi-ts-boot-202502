@@ -38,7 +38,7 @@ function createTodo(text: string): Todo {
   if (!text) throw new Error('Input text is empty!');
   return {
     text,
-    isCompleted: false,
+    isCompleted: false, //aquí es donde se llama a la funcion randomizadora de id
   };
 }
 
