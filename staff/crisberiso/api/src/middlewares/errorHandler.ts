@@ -28,7 +28,9 @@ const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFun
   res.status(status).json({
     error: status === 500 ? SystemError.name : error.constructor.name,
     message: error.message
-  })
+  });
+
+  console.error(error)
 }
 
 export default errorHandler;
