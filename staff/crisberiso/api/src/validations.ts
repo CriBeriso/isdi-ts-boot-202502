@@ -1,4 +1,5 @@
-import errors from "./errors";
+import errors from "./errors/index.js";
+
 const { ValidationError } = errors;
 
 const validateUsername = (username: string) => {
@@ -29,12 +30,23 @@ const validatePassword = (password: string) => {
   if (password.length < 8) {
     throw new ValidationError("Invalid password length");
   }
-}
+};
+
+const validateId = (userId: string) => {
+  if (typeof userId !== "string") {
+    throw new ValidationError("Invalid user id");
+  }
+
+  if (userId.length !== 24) {
+    throw new ValidationError("Invalid user id length");
+  }
+};
 
 const validate = {
   username: validateUsername,
   email: validateEmail,
-  password: validatePassword
-}
+  password: validatePassword,
+  id: validateId,
+};
 
 export default validate;

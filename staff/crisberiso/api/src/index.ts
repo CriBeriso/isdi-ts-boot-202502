@@ -1,24 +1,45 @@
 import "dotenv/config.js";
-import express, { json, Request, Response } from "express";
-import registerUserHandler from "./handlers/registerUserHandler";
-import errorHandler from "./middlewares/errorHandler";
-import morgan from "morgan";
+import express, { Request, Response } from "express";
 
+import errorHandler from "./middlewares/errorHandler.js";
+import loggers from "./logs/index.js";
 
-const api = express();
+import { data } from "./data/index.js";
 
-const PORT = process.env.PORT || 7500;
+import { userRouter } from "./routes/users.js";
 
-api.use(morgan("dev"));
+const { morganMiddleware } = loggers;
 
-const jsonBodyParser = json();
+const { MONGO_URI, MONGO_DB_NAME } = process.env;
 
-api.get("/ping", (_req: Request, res: Response) => {
-  res.json({ message: "pong 🏓" });
-});
+data
+  .connect(MONGO_URI!, MONGO_DB_NAME)
+  .then(() => {
+    const api = express();
 
-api.post("/users", jsonBodyParser, registerUserHandler);
+    api.disable("x-powered-by");
 
-api.use(errorHandler);
+    const PORT = process.env.PORT || 7500;
 
-api.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`))
+    api.use(morganMiddleware);
+
+    api.use("/users", userRouter);
+
+    api.get("/ping", (_req: Request, res: Response) => {
+      res.json({ message: "pong 🏓" });
+    });
+
+    api.use(errorHandler);
+
+    api.listen(PORT, () =>
+      console.log(`Listening on http://localhost:${PORT}`)
+    );
+  })
+  .catch((error) => {
+    process.on("exit", () => {
+      console.error(error.message);
+
+      process.exit(1);
+    });
+  });
+

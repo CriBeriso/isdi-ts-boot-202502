@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { CustomRequestBody, UserFromReq } from "../types";
-import service from "../services";
-import createFunctionalHandler from "../middlewares/createFunctionalHandler";
+import { CustomRequestBody, UserFromReq } from "../types.js";
+import service from "../services/index.js";
+import createFunctionalHandler from "../middlewares/createFunctionalHandler.js";
 
 const registerUserHandler = createFunctionalHandler<UserFromReq>(
   (req: CustomRequestBody<UserFromReq>, res: Response) => {
